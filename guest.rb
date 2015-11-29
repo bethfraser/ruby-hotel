@@ -8,5 +8,5 @@ class Guest
     @room_booking = 'none'
   end
 
-
+  
 end

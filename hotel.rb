@@ -57,8 +57,8 @@ class Hotel
 
   def day_revenue
     revenue = 0
-    @rooms.each {|room| revenue += room.rate}
-    return "£#{revenue}"
+    @rooms.each {|room| revenue += room.rate if room.status == "Occupied"}
+    return revenue
   end
 
 end
