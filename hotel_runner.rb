@@ -34,25 +34,17 @@ guest_9 = Guest.new('Rachel')
 guest_10 = Guest.new('Gemma')
 guest_11 = Guest.new('Andy')
 
+hotel.add_room(room_1, room_2, room_3, room_4, room_5, room_6) 
+hotel.add_guest(guest_1, guest_2, guest_3, guest_4, guest_5, guest_6, guest_7)
 
 puts "Welcome to #{hotel.name}\n\n"
-
-hotel.add_room(room_1, room_2, room_3, room_4, room_5, room_6) 
-
-
 puts "Current hotel capacity is: #{hotel.capacity} rooms"
 puts "Current number of rooms booked is: #{hotel.number_rooms_booked} rooms"
 
-
-hotel.add_guest(guest_1, guest_2, guest_3, guest_4, guest_5, guest_6, guest_7)
-
-
-puts "\nBeth checks in to Room 1."
-hotel.check_in('Beth', '1')
-puts "Kim tries to check in to Room 1."
-hotel.check_in('Kim', '1')
-puts "Kim checks in to Room 3."
-hotel.check_in('Kim', '3')
+puts "\nBeth checks in to a double room."
+hotel.check_in('Beth', 'double')
+puts "Kim checks in to a double room."
+hotel.check_in('Kim', 'double')
 
 
 puts "\nCurrent hotel capacity is: #{hotel.capacity} rooms"
@@ -64,19 +56,19 @@ puts "\nRoom List"
 hotel.roomlist
 
 puts "\nBeth checks out of Room 1."
-hotel.check_out('Beth', '1')
+hotel.check_out('Beth')
 
 puts "\nGuest List"
 hotel.guestlist
 puts "\nRoom List"
 hotel.roomlist
 
-puts "\nMore guests check in."
-hotel.check_in('Beth', '1')
-hotel.check_in('Adam', '2')
-hotel.check_in('Jess', '4')
-hotel.check_in('Mike', '5')
-hotel.check_in('David', '6')
+puts "\nMore guests check in. Mike wants a single room but there are none left."
+hotel.check_in('Beth', 'single')
+hotel.check_in('Adam', 'single')
+hotel.check_in('Jess', 'single')
+hotel.check_in('Mike', 'single')
+hotel.check_in('David', 'double')
 
 puts "\nGuest List"
 hotel.guestlist
@@ -86,24 +78,20 @@ hotel.roomlist
 puts "\nCurrent hotel capacity is: #{hotel.capacity} rooms"
 puts "Current number of rooms booked is: #{hotel.number_rooms_booked} rooms"
 
-puts "\nJames tries to check in to room 3."
-hotel.check_in('James', '3')
+puts "\nJames tries to check in to a single room."
+hotel.check_in('James', 'single')
 
 puts "\nRoom 1's rate is: £#{room_1.rate}"
-
-hotel.check_out('Beth', '1')
 
 puts "Total day's revenue is: £#{hotel.day_revenue}"
 
 chain.add_hotels(hotel, hotel_2)
 
 hotel_2.add_room(room_a, room_b, room_c, room_d)
-
-
 hotel_2.add_guest(guest_8, guest_9, guest_10, guest_11)
 
-hotel_2.check_in('Rachel', 'A')
-hotel_2.check_in('Brian', 'C')
+hotel_2.check_in('Rachel', 'double')
+hotel_2.check_in('Brian', 'single')
 
 puts "The Best Hotel Inc chain's revenue for today is: £#{chain.total_day_revenue}"
 

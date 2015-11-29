@@ -37,12 +37,26 @@ class Hotel
     @rooms.each {|room| puts "Room number: #{room.number}\tType: #{room.type}\tStatus: #{room.status}"}
   end
 
-  def check_in(name, room_number)
+  def check_in(name, room_type)
     return puts "All hotel rooms are full." if self.capacity == 0
-    return puts "This room is already occupied." if self.occupied?(room_number)
-    @rooms.map {|room| room.status = "Occupied" if room.number == room_number}
-    @guests.map {|person| person.room_booking = room_number if person.name == name}
+    if find_room_of_type(room_type) == nil
+      puts "No rooms of the selected type are available." 
+      puts "Would you like to search for a different room type? (y/n)"
+      answer = gets.chomp.downcase
+      return if answer == 'n'
+      puts "Enter room type: (double/single)"
+      room_type = gets.chomp.downcase
+    end
+    room_chosen = find_room_of_type(room_type)
+    room_chosen.status = "Occupied"
+    @guests.map {|person| person.room_booking = room_chosen.number if person.name == name}
   end
+
+  def find_room_of_type(input_type)
+    available_room = @rooms.detect {|room| room.type == input_type && room.status == "Available"}
+    return available_room
+  end
+
 
   def occupied?(room_number)
     chosen_room = @rooms.select {|room| room.number == room_number}
@@ -50,8 +64,9 @@ class Hotel
     return false 
   end
 
-  def check_out(name, room_number)
-    @rooms.map {|room| room.status = "Available" if room.number == room_number}
+  def check_out(name)
+    guest = @guests.find {|person| person.name == name}
+    @rooms.map {|room| room.status = "Available" if room.number == guest.room_booking}
     @guests.map {|person| person.room_booking = 'none' if person.name == name}
   end
 
