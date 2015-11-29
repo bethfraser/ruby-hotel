@@ -38,6 +38,7 @@ class Hotel
   end
 
   def check_in(name, room_number)
+    return puts "All hotel rooms are full." if self.capacity == 0
     return puts "This room is already occupied." if self.occupied?(room_number)
     @rooms.map {|room| room.status = "Occupied" if room.number == room_number}
     @guests.map {|person| person.room_booking = room_number if person.name == name}
@@ -47,7 +48,6 @@ class Hotel
     chosen_room = @rooms.select {|room| room.number == room_number}
     return true if chosen_room[0].status == "Occupied"
     return false 
-
   end
 
   def check_out(name, room_number)
@@ -55,6 +55,10 @@ class Hotel
     @guests.map {|person| person.room_booking = 'none' if person.name == name}
   end
 
-
+  def day_revenue
+    revenue = 0
+    @rooms.each {|room| revenue += room.rate}
+    return "£#{revenue}"
+  end
 
 end
